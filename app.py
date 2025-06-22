@@ -7,8 +7,6 @@ from Models.settlement import add_settlement, update_settlement_status
 from Models.connection import get_connection  # ✅ Remove manual redefinition
 import mysql.connector
 
-app = Flask(__name__)
-app.secret_key = 'your_secret_key'
 @app.route('/debug-connection')
 def debug_connection():
     try:
@@ -24,6 +22,9 @@ def debug_connection():
     
     except Exception as e:
         return f"❌ DB ERROR: {e}"
+app = Flask(__name__)
+app.secret_key = 'your_secret_key'
+
 
 ADMIN_ID = 68  # 🔒 Global Admin
 
