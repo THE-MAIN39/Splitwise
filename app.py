@@ -9,6 +9,21 @@ import mysql.connector
 
 app = Flask(__name__)
 app.secret_key = 'your_secret_key'
+@app.route('/debug-connection')
+def debug_connection():
+    try:
+        conn = get_connection()
+        cursor = conn.cursor()
+        cursor.execute("SELECT DATABASE();")
+        current_db = cursor.fetchone()[0]
+
+        cursor.execute("SHOW TABLES;")
+        tables = [row[0] for row in cursor.fetchall()]
+        
+        return f"✅ Connected to DB: <b>{current_db}</b><br>📋 Tables: {tables}"
+    
+    except Exception as e:
+        return f"❌ DB ERROR: {e}"
 
 ADMIN_ID = 68  # 🔒 Global Admin
 
