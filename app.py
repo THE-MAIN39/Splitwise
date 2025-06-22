@@ -7,37 +7,8 @@ from Models.settlement import add_settlement, update_settlement_status
 from Models.connection import get_connection
 import mysql.connector
 
-app = Flask(__name__)
-app.secret_key = 'your_secret_key'
 
 
-
-# DB Connection
-def get_connection():
-    return mysql.connector.connect(
-        host="bsgpfm7hjvrfuuctqhaa-mysql.services.clever-cloud.com",
-        user="u25tcgnb0dpj2a3t",
-        password="jtQuCd4lNzhLl3qirC4e",
-        database="bsgpfm7hjvrfuuctqhaa",
-        port=3306
-    )
-
-
-
-
-
-
-
-
-
-
-
-
-
-# Your routes (add here or import them)
-
-if __name__ == "__main__":
-    app.run(host='0.0.0.0', port=3000)
 
 # Set the admin ID here
 ADMIN_ID = 68  # You can change this to any admin user ID
