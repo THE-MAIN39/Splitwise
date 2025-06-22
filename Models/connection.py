@@ -6,8 +6,9 @@ def get_connection():
         user="u25tcgnb0dpj2a3t",
         password="jtQuCd4lNzhLl3qirC4e",
         database="bsgpfm7hjvrfuuctqhaa",
-        port=3306
+        port=3306,
+        ssl_disabled=False,  # ✅ Required for Clever Cloud
+        ssl_verify_cert=False  # ✅ Since they disabled SSL verification
     )
-    return conn
 
 print("✅ Successfully connected to Clever Cloud")
