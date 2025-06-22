@@ -1,13 +1,44 @@
-from flask import Flask, render_template, request, redirect, session, url_for, jsonify
+from flask import Flask, render_template, request, redirect, session, url_for, jsonify, flash
 from Models.user import register_user, login_user
-from Models.group import create_group, add_member_to_group, get_group_info
+from Models.group import create_group, add_member_to_group, get_group_info, get_group_summary
 from Models.expense import add_expense, share_expense
 from Models.feedback import add_feedback
 from Models.settlement import add_settlement, update_settlement_status
 from Models.connection import get_connection
-from Models.group import get_group_summary
-from flask import flash
-from flask import flash, redirect, url_for
+import mysql.connector
+
+app = Flask(__name__)
+app.secret_key = 'your_secret_key'
+
+
+
+# DB Connection
+def get_connection():
+    return mysql.connector.connect(
+        host="bsgpfm7hjvrfuuctqhaa-mysql.services.clever-cloud.com",
+        user="u25tcgnb0dpj2a3t",
+        password="jtQuCd4lNzhLl3qirC4e",
+        database="bsgpfm7hjvrfuuctqhaa",
+        port=3306
+    )
+
+
+
+
+
+
+
+
+
+
+
+
+
+# Your routes (add here or import them)
+
+if __name__ == "__main__":
+    app.run(host='0.0.0.0', port=3000)
+
 # Set the admin ID here
 ADMIN_ID = 68  # You can change this to any admin user ID
 
