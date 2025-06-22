@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Admin Dashboard</title>
+  <style>
+    body {
+      min-height: 100vh;
+      background: linear-gradient(135deg, #0f0f0f, #1a1a1a);
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      color: #eee;
+      padding: 40px 20px;
+      overflow-x: hidden;
+    }
+
+    .admin-panel {
+      max-width: 1200px;
+      margin: 0 auto;
+      background: rgba(31, 31, 31, 0.9);
+      padding: 40px;
+      border-radius: 16px;
+      box-shadow: 0 0 25px rgba(0, 255, 170, 0.2);
+      border: 1px solid rgba(0, 255, 170, 0.2);
+    }
+
+    .admin-panel h1 {
+      color: #00ffaa;
+      text-align: center;
+      margin-bottom: 30px;
+      font-size: 2.2em;
+    }
+
+    .admin-section {
+      margin-bottom: 50px;
+    }
+
+    .admin-section h2 {
+      color: #00ffaa;
+      margin-bottom: 15px;
+      font-size: 1.5em;
+      border-bottom: 1px solid #00ffaa33;
+      padding-bottom: 8px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+      background-color: #121212;
+      border-radius: 6px;
+      overflow: hidden;
+    }
+
+    thead {
+      background-color: #2c2c2c;
+    }
+
+    th, td {
+      padding: 12px 16px;
+      text-align: left;
+      border-bottom: 1px solid #333;
+      color: #ccc;
+    }
+
+    th {
+      color: #00ffaa;
+      font-weight: bold;
+    }
+
+    tr:hover {
+      background-color: rgba(0, 255, 170, 0.05);
+    }
+
+    .top-box {
+      background: rgba(0, 255, 170, 0.1);
+      border: 1px solid #00ffaa33;
+      padding: 15px 20px;
+      border-radius: 10px;
+      color: #00ffaa;
+      font-size: 1em;
+      max-width: 1200px;
+      margin: 0 auto 40px auto;
+      box-shadow: 0 0 10px rgba(0, 255, 170, 0.15);
+    }
+
+    .top-box p {
+      margin: 4px 0;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="top-box">
+    <p>👑 Welcome Admin: <strong>{{ user.First_name }}</strong></p>
+    <p>👤 Username: {{ user.Last_name }}</p>
+    <p>📧 Email: {{ user.Email }}</p>
+  </div>
+
+  <div class="admin-panel">
+    <h1>🛠️ Admin Dashboard</h1>
+
+    <div class="admin-section">
+      <h2>📋 All Groups</h2>
+      <table>
+        <thead>
+          <tr><th>ID</th><th>Name</th></tr>
+        </thead>
+        <tbody>
+          {% for g in all_groups %}
+          <tr><td>{{ g.ID }}</td><td>{{ g.Group_name }}</td></tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+    <div class="admin-section">
+      <h2>👥 Members</h2>
+      <table>
+        <thead>
+          <tr><th>Group ID</th><th>User ID</th><th>Name</th></tr>
+        </thead>
+        <tbody>
+          {% for m in all_members %}
+          <tr><td>{{ m.Group_ID }}</td><td>{{ m.User_ID }}</td><td>{{ m.Joined_at }}</td></tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+    <div class="admin-section">
+      <h2>💬 Feedback</h2>
+      <table>
+        <thead>
+          <tr><th>ID</th><th>User ID</th><th>Message</th></tr>
+        </thead>
+        <tbody>
+          {% for f in all_feedbacks %}
+          <tr><td>{{ f.ID }}</td><td>{{ f.User_ID }}</td><td>{{ f.Description }}</td></tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+    <div class="admin-section">
+      <h2>💸 Settlements</h2>
+      <table>
+        <thead>
+          <tr><th>ID</th><th>From User ID</th><th>To User ID</th><th>Amount (Rs)</th></tr>
+        </thead>
+        <tbody>
+          {% for s in all_settlements %}
+          <tr>
+            <td>{{ s.ID }}</td>
+            <td>{{ s.From_UserID }}</td>
+            <td>{{ s.To_UserID }}</td>
+            <td>{{ s.Amount }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</body>
+</html>

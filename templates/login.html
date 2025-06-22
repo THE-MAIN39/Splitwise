@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Splitwise Login</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <div class="container">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    <div style="margin: 20px auto; padding: 10px; background: #1f1f1f; border-radius: 8px; color: #00ffc3; box-shadow: 0 0 10px #00ffc3a6; text-align:center;">
+      {% for category, message in messages %}
+        <p><strong>{{ message }}</strong></p>
+      {% endfor %}
+    </div>
+  {% endif %}
+{% endwith %}
+
+    <h2>Login to Splitwise</h2>
+
+    <!-- ✅ Only ONE form tag, with correct method and action -->
+    <form action="/login" method="POST">
+      <!-- ✅ Add `name` attributes -->
+      <input type="email" name="email" placeholder="Email" required>
+      <input type="password" name="password" placeholder="Password" required>
+      <button type="submit" class="glow-button">Login</button>
+
+    </form>
+
+    <p class="switch">Don't have an account? <a href="/register" class="glow-button">Register here</a>
+
+</p>
+  </div>
+
+  <script src="/static/script.js"></script>
+</body>
+</html>

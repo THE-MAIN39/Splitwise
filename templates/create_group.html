@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Create Group</title>
+  <link rel="stylesheet" href="/static/css/style.css">
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      background-color: #121212;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    .container {
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .form-container {
+      background-color: #1f1f1f;
+      color: #f0f0f0;
+      border-radius: 12px;
+      padding: 40px;
+      width: 100%;
+      max-width: 400px;
+      box-shadow: 0 0 15px rgba(0, 255, 255, 0.2);
+      text-align: center;
+    }
+
+    h1 {
+      color: #00ffff;
+      font-size: 2rem;
+      margin-bottom: 25px;
+    }
+
+    .message {
+      color: #00ff99;
+      font-size: 1rem;
+      margin-bottom: 20px;
+    }
+
+    input[type="text"],
+    button {
+      width: 90%;
+      padding: 12px;
+      margin: 10px auto;
+      border: none;
+      border-radius: 6px;
+      font-size: 1rem;
+    }
+
+    input[type="text"] {
+      background-color: #2b2b2b;
+      color: #fff;
+      border: 1px solid #444;
+    }
+
+    button {
+      background-color: transparent;
+      border: 1px solid #00ffff;
+      color: #00ffff;
+      cursor: pointer;
+      transition: 0.3s all;
+    }
+
+    button:hover {
+      background-color: #00ffff;
+      color: #1f1f1f;
+      box-shadow: 0 0 10px #00ffff;
+    }
+
+    a {
+      display: block;
+      margin-top: 20px;
+      color: #00ffff;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="form-container">
+      <h1>Create a New Group</h1>
+
+      {% if message %}
+        <p class="message">{{ message }}</p>
+      {% endif %}
+
+      <form action="/api/create-group" method="POST">
+        <input type="text" name="group_name" placeholder="Group Name" required>
+        <input type="hidden" name="created_by" value="{{ user_id }}">
+        <button type="submit">Create Group</button>
+      </form>
+
+      <a href="/dashboard">⬅ Back to Dashboard</a>
+    </div>
+  </div>
+</body>
+</html>

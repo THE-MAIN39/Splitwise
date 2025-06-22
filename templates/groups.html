@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Your Groups</title>
+  <link rel="stylesheet" href="/static/css/style.css" />
+  <style>
+    body.dark {
+      background-color: #121212;
+      color: #fff;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 60px auto;
+      padding: 30px;
+      background-color: #1e1e1e;
+      border-radius: 12px;
+      box-shadow: 0 0 15px #00ffc3a6;
+    }
+
+    h1, h2 {
+      text-align: center;
+      color: #00ffc3;
+    }
+
+    form {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 30px;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    input[type="text"] {
+      padding: 10px;
+      border-radius: 8px;
+      border: none;
+      background-color: #2a2a2a;
+      color: #fff;
+      box-shadow: 0 0 5px #00ffc3;
+    }
+
+    .glow-button {
+      background-color: #00ffc3;
+      color: black;
+      padding: 10px 15px;
+      border: none;
+      border-radius: 10px;
+      text-decoration: none;
+      font-weight: bold;
+      box-shadow: 0 0 10px #00ffc3;
+      transition: background-color 0.3s, box-shadow 0.3s;
+    }
+
+    .glow-button:hover {
+      background-color: #00e6b2;
+      box-shadow: 0 0 15px #00ffc3, 0 0 25px #00ffc3;
+    }
+
+    .group-card {
+      background-color: #2a2a2a;
+      padding: 20px;
+      margin: 15px 0;
+      border-radius: 10px;
+      box-shadow: 0 0 10px #00ffc3a6;
+    }
+
+    .group-card:hover {
+      transform: scale(1.02);
+      transition: 0.3s ease-in-out;
+      box-shadow: 0 0 15px #00ffc3;
+    }
+
+    .group-name {
+      font-size: 1.3rem;
+      color: #00ffc3;
+    }
+
+    .created-info {
+      font-size: 0.9rem;
+      color: #ccc;
+    }
+
+    .summary-link {
+      margin-top: 10px;
+    }
+
+    .back-link {
+      display: block;
+      text-align: center;
+      margin-top: 25px;
+    }
+  </style>
+</head>
+<body class="dark">
+  <div class="container">
+    
+    
+
+    <!-- Your Groups -->
+    <h1>Your Groups</h1>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    <div class="flash-container">
+      {% for category, message in messages %}
+        <div class="flash-message">{{ message }}</div>
+      {% endfor %}
+    </div>
+  {% endif %}
+{% endwith %}
+
+
+
+    {% if group_list %}
+      {% for group in group_list %}
+        <div class="group-card">
+          <a href="/group/{{ group.ID }}" style="text-decoration: none;">
+            <div class="group-name">{{ group.Group_name }}</div>
+            <div class="created-info">
+              Created by User ID: {{ group.Created_by }}<br>
+              On: {{ group.Created_at }}
+            </div>
+          </a>
+          <div class="summary-link">
+           <a href="/group/{{ group.ID }}/summary" class="glow-button">📋 View Summary</a>
+
+          </div>
+        </div>
+      {% endfor %}
+    {% else %}
+      <p style="color: #999; text-align: center;">No groups found.</p>
+    {% endif %}
+
+    <div class="back-link">
+      <a href="/dashboard" class="glow-button">⬅ Back to Dashboard</a>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Notification</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #f0f2f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .message-container {
+            background-color: white;
+            padding: 40px 60px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+            text-align: center;
+        }
+
+        .message-container h1 {
+            font-size: 2rem;
+            color: #2e7d32;
+            margin-bottom: 20px;
+        }
+
+        .message-container a {
+            display: inline-block;
+            margin-top: 15px;
+            text-decoration: none;
+            background-color: #1976d2;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 8px;
+        }
+
+        .message-container a:hover {
+            background-color: #1565c0;
+        }
+    </style>
+</head>
+<body>
+    <div class="message-container">
+        <h1>{{ message }}</h1>
+        <a href="/dashboard">Back to Dashboard</a>
+    </div>
+</body>
+</html>

@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Group Summary</title>
+  <link rel="stylesheet" href="/static/css/style.css" />
+  <style>
+    body {
+      background-color: #121212;
+      color: #fff;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 50px auto;
+      padding: 30px;
+      background-color: #1e1e1e;
+      border-radius: 12px;
+      box-shadow: 0 0 15px #00ffc3a6;
+    }
+
+    h1, h2 {
+      color: #00ffc3;
+      border-bottom: 1px solid #00ffc38a;
+      padding-bottom: 5px;
+    }
+
+    table {
+      width: 100%;
+      margin-top: 20px;
+      border-collapse: collapse;
+    }
+
+    th, td {
+      padding: 12px;
+      border: 1px solid #2e2e2e;
+      text-align: left;
+    }
+
+    th {
+      background-color: #00ffc31e;
+      color: #00ffc3;
+    }
+
+    .glow-button {
+      background-color: #00ffc3;
+      color: black;
+      padding: 10px 15px;
+      border: none;
+      border-radius: 10px;
+      text-decoration: none;
+      font-weight: bold;
+      box-shadow: 0 0 10px #00ffc3;
+      transition: background-color 0.3s, box-shadow 0.3s;
+      cursor: pointer;
+    }
+
+    .glow-button:hover {
+      background-color: #00e6b2;
+      box-shadow: 0 0 15px #00ffc3, 0 0 25px #00ffc3;
+    }
+
+    .back-link {
+      text-align: center;
+      margin-top: 25px;
+    }
+
+    .section {
+      margin-bottom: 40px;
+    }
+
+    .action-btn {
+      padding: 6px 12px;
+      background: #c62828;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    .action-btn:hover {
+      background-color: #e53935;
+    }
+
+    .button-group {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Group Summary: {{ group.Group_name }}</h1>
+
+    <div class="section">
+      <h2>👥 Members</h2>
+      <ul>
+        {% for member in members %}
+          <li>{{ member.First_name }} {{ member.Last_name }} (ID: {{ member.ID }})</li>
+        {% endfor %}
+      </ul>
+    </div>
+
+    <div class="section">
+      <h2>💸 Expenses</h2>
+      {% if expenses %}
+        <table>
+          <tr>
+            <th>ID</th>
+            <th>Description</th>
+            <th>Amount</th>
+            <th>Paid By</th>
+          </tr>
+          {% for expense in expenses %}
+          <tr>
+            <td>{{ expense.ID }}</td>
+            <td>{{ expense.Description }}</td>
+            <td>{{ expense.Amount }}</td>
+            <td>{{ expense.Paid_by }}</td>
+          </tr>
+          {% endfor %}
+        </table>
+      {% else %}
+        <p>No expenses recorded.</p>
+      {% endif %}
+    </div>
+
+    <div class="section">
+      <h2>🤝 Settlements</h2>
+      {% if settlements %}
+        <table>
+          <tr>
+            <th>ID</th>
+            <th>From</th>
+            <th>To</th>
+            <th>Amount</th>
+            <th>Status</th>
+            <th>Action</th>
+          </tr>
+          {% for s in settlements %}
+          <tr>
+            <td>{{ s.ID }}</td>
+            <td>{{ s.From_Name }} (ID: {{ s.From_UserID }})</td>
+            <td>{{ s.To_Name }} (ID: {{ s.To_UserID }})</td>
+            <td>{{ s.Amount }}</td>
+            <td>{{ s.Status }}</td>
+            <td>
+              {% if s.From_UserID == session['user_id'] %}
+              <form method="POST" action="/settlement/delete/{{ s.ID }}" style="display:inline;">
+                <button type="submit" class="action-btn" onclick="return confirm('Are you sure you want to delete this settlement?')">
+                  Delete
+                </button>
+              </form>
+              {% else %}
+                <span style="color:gray;">Not your settlement</span>
+              {% endif %}
+            </td>
+          </tr>
+          {% endfor %}
+        </table>
+      {% else %}
+        <p>No settlements yet.</p>
+      {% endif %}
+    </div>
+
+    <div class="back-link button-group">
+      {% if group.Created_by|int == session['user_id']|int %}
+  <a href="/add-expense/{{ group.ID }}" class="glow-button">➕ Add Expense</a>
+{% endif %}
+
+
+      <form action="/settle-wallet/{{ group.ID }}" method="POST" style="display: inline;">
+        <button type="submit" class="glow-button">💳 Settle All with Wallet</button>
+      </form>
+
+      <a href="/groups" class="glow-button">⬅ Back to Groups</a>
+    </div>
+  </div>
+</body>
+</html>

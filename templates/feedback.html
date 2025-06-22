@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Give Feedback</title>
+  <link rel="stylesheet" href="/static/css/style.css">
+  <style>
+    body.dark {
+      background-color: #121212;
+      color: #fff;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    .feedback-container {
+      max-width: 600px;
+      margin: 60px auto;
+      padding: 30px;
+      background: #1f1f1f;
+      border-radius: 12px;
+      box-shadow: 0 0 15px #00ffc3a6;
+    }
+
+    h2 {
+      color: #00ffc3;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    label, textarea, select {
+      display: block;
+      width: 100%;
+      margin-bottom: 15px;
+    }
+
+    textarea {
+      height: 100px;
+      padding: 10px;
+      border-radius: 8px;
+      border: none;
+      background: #333;
+      color: white;
+    }
+
+    select {
+      background: #333;
+      color: white;
+      border-radius: 8px;
+      padding: 8px;
+      border: none;
+    }
+
+    button {
+      background-color: #00ffc3;
+      color: black;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 10px;
+      font-weight: bold;
+      width: 100%;
+      cursor: pointer;
+      box-shadow: 0 0 10px #00ffc3;
+    }
+
+    button:hover {
+      background-color: #00e6b2;
+      box-shadow: 0 0 15px #00ffc3, 0 0 25px #00ffc3;
+    }
+
+    .submitted-feedback {
+      margin-top: 20px;
+      background: #2a2a2a;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px #00ffc3a6;
+    }
+
+    .back-button {
+      display: inline-block;
+      margin-top: 20px;
+      background-color: #00ffc3;
+      color: black;
+      padding: 10px 15px;
+      border-radius: 10px;
+      text-decoration: none;
+      font-weight: bold;
+      box-shadow: 0 0 10px #00ffc3;
+    }
+
+    .back-button:hover {
+      background-color: #00e6b2;
+      box-shadow: 0 0 15px #00ffc3, 0 0 25px #00ffc3;
+    }
+  </style>
+</head>
+<body class="dark">
+  <div class="feedback-container">
+    <h2>💬 Give Us Your Feedback</h2>
+
+    {% if feedback %}
+      <div class="submitted-feedback">
+        <p><strong>Your Feedback:</strong></p>
+        <p>{{ feedback.Description }}</p>
+        <p><strong>Rating:</strong> {{ feedback.Rating }} / 5 ⭐</p>
+        <p><strong>Date:</strong> {{ feedback.Created_At.strftime('%Y-%m-%d') }}</p>
+        <a href="/dashboard" class="back-button">⬅ Back to Dashboard</a>
+      </div>
+    {% else %}
+      <form method="POST" action="/feedback">
+        <label for="description">Feedback:</label>
+        <textarea name="description" required placeholder="Write your thoughts here..."></textarea>
+
+        <label for="rating">Rating:</label>
+        <select name="rating" required>
+          <option value="">Select</option>
+          <option value="5">⭐⭐⭐⭐⭐ Excellent</option>
+          <option value="4">⭐⭐⭐⭐ Good</option>
+          <option value="3">⭐⭐⭐ Average</option>
+          <option value="2">⭐⭐ Poor</option>
+          <option value="1">⭐ Very Poor</option>
+        </select>
+
+        <button type="submit">Submit Feedback</button>
+      </form>
+    {% endif %}
+  </div>
+</body>
+</html>

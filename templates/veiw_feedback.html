@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Your Feedback</title>
+  <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body class="dark">
+  <div class="container">
+    <h1>Your Submitted Feedback</h1>
+    <div class="section">
+      <p><strong>Rating:</strong> {{ feedback.Rating }}</p>
+      <p><strong>Description:</strong><br>{{ feedback.Description }}</p>
+      <p><strong>Date:</strong> {{ feedback.Feedback_Date }}</p>
+    </div>
+    <a class="back-button" href="/dashboard">⬅ Back to Dashboard</a>
+  </div>
+</body>
+</html>
