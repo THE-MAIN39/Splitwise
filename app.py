@@ -42,9 +42,6 @@ if __name__ == "__main__":
 # Set the admin ID here
 ADMIN_ID = 68  # You can change this to any admin user ID
 
-app = Flask(__name__)
-app.secret_key = 'your_secret_key'
-
 @app.route('/')
 def home():
     return redirect('/login')
