@@ -4,18 +4,18 @@ from Models.group import create_group, add_member_to_group, get_group_info, get_
 from Models.expense import add_expense, share_expense
 from Models.feedback import add_feedback
 from Models.settlement import add_settlement, update_settlement_status
-from Models.connection import get_connection
+from Models.connection import get_connection  # ✅ Remove manual redefinition
 import mysql.connector
 
+app = Flask(__name__)
+app.secret_key = 'your_secret_key'
 
-
-
-# Set the admin ID here
-ADMIN_ID = 68  # You can change this to any admin user ID
+ADMIN_ID = 68  # 🔒 Global Admin
 
 @app.route('/')
 def home():
     return redirect('/login')
+
 
 # ------------------ Login ------------------
 @app.route('/login', methods=['GET', 'POST'])
